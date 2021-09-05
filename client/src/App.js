@@ -1,46 +1,23 @@
-import { useEffect, useState } from 'react';
-import { w3cwebsocket as W3CWebSocket } from 'websocket';
-import './App.css';
-
-const client = new W3CWebSocket(
-  `ws://localhost:${process.env.REACT_APP_SERVER_PORT}/ws`
-);
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { Home } from './routes/Home';
+import { Room } from './routes/Room';
+import { UserProvider } from './contexts/UserProvider';
+import { PrivateRoute } from './routes/PrivateRoute';
 
 function App() {
-  const [nick, setNick] = useState('');
-  const [messages, setMessages] = useState([]);
-  const handleInputChange = (evt) => {
-    setNick(evt.target.value);
-  };
-
-  const handleClick = (evt) => {
-    evt.preventDefault();
-    client.send(JSON.stringify({ nick }));
-  };
-
-  useEffect(() => {
-    client.onopen = () => {
-      console.log('WebSocket Client Connected');
-    };
-    client.onmessage = ({ data }) => {
-      const msg = JSON.parse(data);
-      setMessages((prev) => {
-        return [...prev, msg];
-      });
-    };
-  }, []);
   return (
-    <div className='App'>
-      <header className='App-header'>
-        <h1>web sockets</h1>
-      </header>
-      <form>
-        <label htmlFor='first'>Nick</label>
-        <input name='nickname' value={nick} onChange={handleInputChange} />
-        <button onClick={handleClick}>Send</button>
-      </form>
-      <div id='connections'>{JSON.stringify(messages)}</div>
-    </div>
+    <UserProvider>
+      <Router>
+        <Switch>
+          <PrivateRoute path='/:roomId'>
+            <Room />
+          </PrivateRoute>
+          <Route path='/' exact>
+            <Home />
+          </Route>
+        </Switch>
+      </Router>
+    </UserProvider>
   );
 }
 

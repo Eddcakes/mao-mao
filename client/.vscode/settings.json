@@ -1,4 +1,5 @@
 {
   "deno.enable": false,
-  "prettier.singleQuote": true
+  "prettier.singleQuote": true,
+  "editor.acceptSuggestionOnCommitCharacter": false
 }

@@ -1,0 +1,10 @@
+.menu {
+  display: grid;
+  justify-content: center;
+  gap: 0.75em;
+}
+
+span.userError {
+  display: block;
+  color: rgb(245, 88, 88);
+}
