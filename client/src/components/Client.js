@@ -4,7 +4,6 @@ import { w3cwebsocket as W3CWebSocket } from 'websocket';
 import { useUser } from '../hooks/useUser';
 
 const wsPort = process.env.REACT_APP_SERVER_PORT || 8000;
-// const client = new W3CWebSocket(`ws://localhost:${wsPort}/ws`);
 
 export function Client() {
   const { user } = useUser();
@@ -20,6 +19,7 @@ export function Client() {
     websocket.current.send(
       JSON.stringify({ user, message, action: 'message' })
     );
+    setMessage('');
   };
 
   useEffect(() => {
@@ -33,7 +33,6 @@ export function Client() {
       const msg = JSON.parse(data);
       switch (msg.action) {
         case 'users':
-          console.log(msg);
           setMemberList(msg.data);
           break;
         case 'message':

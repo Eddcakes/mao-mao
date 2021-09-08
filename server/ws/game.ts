@@ -14,34 +14,34 @@ interface IUser {
   ws: WebSocket;
 }
 
-interface IMsgEvent {
-  user: IUser;
-  action: string;
-  message: string;
-}
-
 const sockets = new Map<string, WebSocket>();
 
 const users = new Map<string, IUser>();
 
 const rooms = new Map();
 
+// messages all connected clients
 const broadcastEvent = (message: IBroadcastEvent) => {
   sockets.forEach((ws: WebSocket) => {
     ws.send(JSON.stringify(message));
   });
 };
 
-const roomBroadcastEvent = (roomName: string) => {
-  console.log('broadcast to: ', roomName);
+const roomBroadcastUsers = (roomName: string) => {
   const users = rooms.get(roomName) || [];
   for (const user of users) {
     const event = {
       action: 'users',
       data: getDisplayUsers(roomName),
     };
-    console.log('send users event', event);
     user.ws.send(JSON.stringify(event));
+  }
+};
+
+const roomBroadcastMessage = (roomName: string, message: string) => {
+  const users = rooms.get(roomName) || [];
+  for (const user of users) {
+    user.ws.send(JSON.stringify({ action: 'message', message: message }));
   }
 };
 
@@ -81,12 +81,10 @@ export const gameConnection = async (ws: WebSocket) => {
           const usersInRoom = rooms.get(parsedEvt.user.room) || [];
           usersInRoom.push(newUser);
           rooms.set(parsedEvt.user.room, usersInRoom);
-          roomBroadcastEvent(parsedEvt.user.room);
+          roomBroadcastUsers(parsedEvt.user.room);
           break;
         case 'message':
-          console.log(parsedEvt);
-          /* roomBroadcastEvent works on user join, now to make it work for messages */
-          broadcastEvent(parsedEvt);
+          roomBroadcastMessage(parsedEvt.user.room, parsedEvt.message);
           break;
         default:
           console.error('Cannot find action for socket event');
