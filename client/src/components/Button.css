@@ -1,0 +1,25 @@
+button.btn {
+  all: unset;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 1.2rem;
+  font-weight: 500;
+  border: 1px solid var(--primary-line);
+  text-align: center;
+  padding: 1rem;
+  cursor: pointer;
+  color: var(--primary-font);
+  background-color: var(--interactive);
+}
+
+button.btn:hover {
+  background-color: var(--secondary-bg);
+}
+
+button.btn:focus {
+  outline: -webkit-focus-ring-color auto 1px;
+}
+
+button.btn:active {
+  background-color: var(--secondary-lighter);
+}

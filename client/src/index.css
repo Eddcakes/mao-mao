@@ -5,6 +5,8 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: var(--primary-bg);
+  color: var(--primary-font);
 }
 
 code {
@@ -20,7 +22,10 @@ form {
 
 form input,
 input {
-  padding: 0.75em;
+  padding: 1em;
+  background-color: var(--primary-bg);
+  color: var(--primary-font);
+  border: solid 1px;
 }
 
 form label {

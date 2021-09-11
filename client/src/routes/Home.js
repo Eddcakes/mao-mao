@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useHistory } from 'react-router';
+import { Button } from '../components/Button';
 import { useUser } from '../hooks/useUser';
 import './Home.css';
 
@@ -52,14 +53,14 @@ export function Home() {
         value={nickInput}
         onChange={handleNickInput}
       />
-      <button>Create new room</button>
+      <Button text='create a new room' />
       Or
       <input
         placeholder='join an existing room'
         value={roomInput}
         onChange={handleInput}
       />
-      <button onClick={handleJoin}>join</button>
+      <Button handleClick={handleJoin} text='join' />
       {errors.length > 0 &&
         errors.map((error, idx) => (
           <span className='userError' key={error.for}>

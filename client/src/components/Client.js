@@ -2,6 +2,7 @@ import './Client.css';
 import { useEffect, useRef, useState } from 'react';
 import { w3cwebsocket as W3CWebSocket } from 'websocket';
 import { useUser } from '../hooks/useUser';
+import { Button } from './Button';
 
 const wsPort = process.env.REACT_APP_SERVER_PORT || 8000;
 
@@ -68,7 +69,7 @@ export function Client() {
       <form>
         <label htmlFor='message'>message</label>
         <input name='message' value={message} onChange={handleInputChange} />
-        <button onClick={handleClick}>Send</button>
+        <Button handleClick={handleClick} text='send' />
       </form>
       <div id='connections'>{JSON.stringify(messages)}</div>
     </div>

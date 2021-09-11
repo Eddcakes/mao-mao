@@ -1,0 +1,18 @@
+:root {
+  --primary-font: #474a2c;
+  --primary-line: #59a96a;
+  --secondary-bg: #9bdeac;
+  --secondary-lighter: #97e0be;
+  --primary-bg: #f5f5f5;
+  --interactive: transparent;
+  --error-color: rgb(245, 88, 88);
+}
+
+[data-theme='dark'] {
+  --primary-font: #f5f5f5;
+  --primary-line: #59a96a;
+  --secondary-bg: #4b4b4b;
+  --secondary-lighter: #4b4b4b;
+  --primary-bg: #181818;
+  --interactive: #272727;
+}
